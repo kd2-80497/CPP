@@ -122,11 +122,12 @@ int menu()
 }
 int main()
 {
-    Student st1;
-    Student st2;
+    
 
     // Student st("ANSHI", "FEMALE", 112);
-    int len = st1.get_length();
+   int len;
+   cout<<"ENTER LENGTH OF ARRAY = ";
+   cin>>len;
     Student arr[len];
     // st.accept();
     int i = 0;

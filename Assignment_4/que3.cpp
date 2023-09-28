@@ -6,7 +6,7 @@ class Matrix
     int length;
     int **arr;
 
-public:
+ public:
     Matrix()
     {
 
@@ -61,7 +61,7 @@ public:
 
     void add(Matrix m)
     {
-        //int sum;
+        // int sum;
         for (int i = 0; i < length; i++)
         {
             for (int j = 0; j < length; j++)
@@ -88,22 +88,31 @@ public:
 
     void multiply(Matrix m)
     {
-
+        Matrix result;
         for (int i = 0; i < length; i++)
         {
             for (int j = 0; j < length; j++)
             {
-            
-                for(int k=0;k<length;k++){
-              int   result[i][j] = this->arr[i][k] * m.arr[k][j];
-                cout << " multiply OF arr[" << i << "][" << j << "] = " << result[i][j]<< endl;}
-            }
+                int value = 0;
+                for (int k = 0; k < length; k++)
+                {
+                    value = value + this->arr[i][k] * m.arr[k][j];
+                }
+
+                result.arr[i][j]=value;
+                cout<< result.arr[i][j]<<"\t";
+            }cout<<endl;
         }
     }
 
 
-
-
+    ~Matrix(){
+         for (int i = 0; i < length; i++)
+        {
+            delete arr[i];
+        }
+        delete[] arr;
+    }
 };
 
 int main()

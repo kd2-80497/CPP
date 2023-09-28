@@ -69,6 +69,9 @@ public:
             cout << arr[i] << endl;
         }
     }
+  ~Stack(){
+    delete[] arr;
+  }
 };
 int main()
 {
