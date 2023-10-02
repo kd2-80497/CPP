@@ -55,7 +55,7 @@ public:
         cin >> sal;
     }
 
-   virtual  void display()
+    virtual void display()
     {
         cout << "EMPLOYEE ID = " << id << endl;
         cout << "EMPLOYEE SALARY = " << sal << endl;
@@ -96,14 +96,14 @@ public:
         this->bonus = bonus;
     }
 
-    void accept()
+    virtual void accept()
     {
         Employee::accept();
         cout << "ENTER EMPLOYEE BONUS = ";
         cin >> bonus;
     }
 
-    void display()
+    virtual void display()
     {
         Employee::display();
         cout << "BONUS = " << bonus << endl;
@@ -200,13 +200,13 @@ public:
         smcount++;
     }
 
-    void display_sales_manager()
+    void display()
     {
         Employee::display();
         display_manager();
         display_salesman();
     }
-    void accept_sales_manager()
+    void accept()
     {
         Employee::accept();
         accept_manger();
@@ -258,6 +258,7 @@ int main()
     int mcount = 0;
     int scount = 0;
     int smcount = 0;
+    string desig;
 
     while ((choice = menu()) != 0)
     {
@@ -272,6 +273,7 @@ int main()
                     arr[index] = new Manager();
                     arr[index]->accept();
                     index++;
+                    mcount++;
                 }
                 else
                 {
@@ -285,6 +287,7 @@ int main()
                     arr[index] = new Salesman();
                     arr[index]->accept();
                     index++;
+                    scount++;
                 }
                 else
                 {
@@ -297,6 +300,7 @@ int main()
                     arr[index] = new sales_manager();
                     arr[index]->accept();
                     index++;
+                    smcount++;
                 }
                 else
                 {
@@ -324,25 +328,26 @@ int main()
             break;
 
         case 2:
-            for (int i = 0; i < index; i++)
-            {
-                if (arr[i]->get_designation() == "manager")
-                {
-                    mcount++;
-                }
-                else if (arr[i]->get_designation() == "salesman")
-                {
-                    scount++;
-                }
-                else if (arr[i]->get_designation() == "salesmanager")
-                {
-                    smcount++;
-                }
-            }
+
             cout << "MANAGER COUNT = " << mcount << endl;
             cout << "SALESMAN COUNT = " << scount << endl;
             cout << "SALESMANAGER COUNT = " << smcount << endl;
             break;
+
+        case 3:
+        cout<<"ENTER DESIGNARION YOU WANT TO PRINT = ";
+        cin>>desig;
+            for (int i = 0; i < 10; i++)
+            {
+                if (typeid(*arr[i]) == typeid(desig))
+                {
+                    arr[i]->display();
+                
+                }
+                else {
+                    cout<<"WRONG INPUT.........."<<endl;
+                }
+            }
         }
     }
     return 0;
