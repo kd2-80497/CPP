@@ -111,7 +111,7 @@ public:
     }
     int get_id()
     {
-        return id;
+        return this->id;
     }
     Account_type get_type()
     {
@@ -134,15 +134,16 @@ public:
             throw insufficient_funds(this->id, this->balance, amount);
 
         this->balance = this->balance - amount;
-        cout << "BALANCE = " << balance << endl;
+        cout << "BALANCE = " << this->balance << endl;
     }
 };
 int menu2()
 {
     int choice;
-    cout << "1.DEPOSIT " << endl;
-    cout << "2.WITHDRAWAL" << endl;
-    cout << "3.DISPLAY  ACCOUNT DETAILS" << endl;
+    cout << "1.cREATE ACCOUNT    " << endl;
+    cout << "2.DEPOSIT " << endl;
+    cout << "3.WITHDRAWAL" << endl;
+    cout << "4.DISPLAY  ACCOUNT DETAILS" << endl;
     cout << "enter choice " << endl;
     cin >> choice;
     return choice;
@@ -152,26 +153,36 @@ int main()
 {
     int accno;
     int amount;
+    int size = 5;
 
     int choice;
-    Account *arr[2];
+    Account *arr[size];
     int index = 0;
-    for (int i = 0; i < 2; i++)
-    {
-        arr[i] = new Account;
-        arr[i]->accept();
-    }
+    // for (int i = 0; i < 2; i++)
+    // {
+    //     arr[i] = new Account;
+    //     arr[i]->accept();
+    //     index++;
+    // }
 
     while ((choice = menu2()) != 0)
     {
         switch (choice)
         {
         case 1:
+            if (index < size)
+            {
+                arr[index] = new Account;
+                arr[index]->accept();
+                index++;
+            }
+            break;
+        case 2:
             cout << "ENTER BANK ID = ";
             cin >> accno;
             cout << "ENTER AMOUNT TO DEPOSIT ";
             cin >> amount;
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < size; i++)
             {
 
                 if (arr[i]->get_id() == accno)
@@ -179,20 +190,19 @@ int main()
                     arr[i]->deposit(amount);
                     break;
                 }
-                else
-                {
-                    cout << "NO ACCOUNT NUMBER EXIST...." << endl;
-                    break;
-                }
             }
+
+            cout << "NO ACCOUNT NUMBER EXIST...." << endl;
             break;
 
-        case 2:
+        
+
+        case 3:
             cout << "ENTER BANK ID = ";
             cin >> accno;
             cout << "ENTER AMOUNT TO withdraw ";
             cin >> amount;
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < size; i++)
             {
 
                 if (arr[i]->get_id() == accno)
@@ -200,33 +210,32 @@ int main()
                     try
                     {
                         arr[i]->withdraw(amount);
+                        break;
                     }
-                    catch (insufficient_funds i)
+                    catch (insufficient_funds e)
                     {
-                        i.dispaly();
+                        e.dispaly();
                     }
                     break;
                 }
-                else{
-                cout << "NO ACCOUNT NUMBER EXIST...." << endl;
-                break;
-                }
             }
+            
             break;
 
-        case 3:
+        case 4:
             cout << "ENTER BANK ID = ";
             cin >> accno;
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < size; i++)
             {
 
                 if (arr[i]->get_id() == accno)
                 {
                     arr[i]->display();
+                    break;
                 }
-                cout << "NO ACCOUNT NUMBER EXIST...." << endl;
-                break;
             }
+            cout << "NO ACCOUNT NUMBER EXIST...." << endl;
+            
             break;
         }
     }
